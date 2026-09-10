@@ -24,8 +24,8 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
     description: 'Upload a Soroban smart contract',
     content: 'Deploy your WASM contract to begin fuzzing. Head to the dashboard to upload or connect to an existing contract.',
     action: {
-      label: 'Deploy Contract',
-      url: '/',
+      label: 'Upload Contract',
+      url: '/start',
     },
     completed: false,
   },
@@ -36,7 +36,7 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
     content: 'Run a mutation-based fuzzing campaign against your contract to discover crashes and edge cases.',
     action: {
       label: 'Start Campaign',
-      url: '/',
+      url: '/start',
     },
     completed: false,
   },
@@ -47,7 +47,7 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
     content: 'Examine crash details, failure signatures, and triage results to prioritize fixes.',
     action: {
       label: 'View Runs',
-      url: '/',
+      url: '/runs',
     },
     completed: false,
   },

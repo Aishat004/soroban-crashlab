@@ -63,6 +63,12 @@ export default function WasmIngestionPage() {
 
     return (
         <div className="w-full max-w-4xl mx-auto space-y-8">
+            <div className="card card-padding">
+                <p className="text-meta">
+                    New here? Use the guided <a className="link" href="/start">Start flow</a>: upload,
+                    pick targets, and launch in three steps.
+                </p>
+            </div>
             <div className="space-y-1">
                 <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
                     WASM Contract Ingestion

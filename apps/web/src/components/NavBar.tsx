@@ -132,6 +132,16 @@ export default function NavBar() {
         </nav>
 
         <div className="tablet-actions flex items-center gap-2 sm:gap-3 lg:gap-4 shrink-0 ml-auto">
+          <Link
+            href="/start"
+            prefetch
+            className="hidden sm:inline-flex items-center px-4 lg:px-5 py-1.5 lg:py-2 text-xs lg:text-sm font-bold uppercase tracking-wide text-decoration-none"
+            aria-label="Start a fuzzing run"
+            title="Start a fuzzing run"
+            style={{ background: 'var(--text-primary)', color: 'var(--nav-bg)', cursor: 'pointer' }}
+          >
+            Start
+          </Link>
           {/* Search - hidden on small mobile */}
           <Link
             id="navbar-search-link"

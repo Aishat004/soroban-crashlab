@@ -208,11 +208,11 @@ export default function RunsPage() {
           ? {
               state: 'empty',
               type: 'runs',
-              message: 'No fuzzing runs found',
-              description: 'No fuzzing campaigns or runs have been recorded yet. Trigger a run from the dashboard or launch a fuzzing session to view results.',
+              message: 'No fuzzing runs yet',
+              description: 'Upload your contract .wasm file, pick the functions to fuzz, and launch your first run. It takes about two minutes.',
               action: (
-                <Link href="/" className="btn-primary text-xs sm:text-sm px-4 py-2 inline-flex items-center">
-                  Back to Dashboard
+                <Link href="/start" className="btn-primary text-xs sm:text-sm px-4 py-2 inline-flex items-center">
+                  Upload a contract and start your first run
                 </Link>
               ),
             }

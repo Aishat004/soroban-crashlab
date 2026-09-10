@@ -141,9 +141,14 @@ function DashboardContent() {
           title="Dashboard"
           description="Fuzzing campaign overview"
           actions={
-            <Link href="/runs" prefetch className="btn-primary text-xs sm:text-sm px-3 sm:px-6 h-9 sm:h-10">
-              View All Runs
-            </Link>
+            <>
+              <Link href="/start" prefetch className="btn-primary text-xs sm:text-sm px-3 sm:px-6 h-9 sm:h-10">
+                Start a run
+              </Link>
+              <Link href="/runs" prefetch className="btn-outline text-xs sm:text-sm px-3 sm:px-6 h-9 sm:h-10">
+                View All Runs
+              </Link>
+            </>
           }
         />
       </TextReveal>
@@ -168,6 +173,38 @@ function DashboardContent() {
           </Link>
         </CoverflowCarousel>
       </div>
+
+      {dataState === "success" && runs.length === 0 && (
+        <PageSection className="mb-6">
+          <div className="card card-padding">
+            <h2 className="heading-section">How CrashLab works</h2>
+            <p className="text-meta mt-1 mb-4">Three steps from contract to triaged crash.</p>
+            <ol className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <li>
+                <Link href="/start" prefetch className="card card-padding card-interactive block h-full">
+                  <p className="code-text mb-1">01</p>
+                  <h3 className="text-sm-medium">Upload your contract</h3>
+                  <p className="text-meta text-xs mt-1">Drop in a .wasm file. No config needed.</p>
+                </Link>
+              </li>
+              <li>
+                <Link href="/start" prefetch className="card card-padding card-interactive block h-full">
+                  <p className="code-text mb-1">02</p>
+                  <h3 className="text-sm-medium">Launch the fuzzer</h3>
+                  <p className="text-meta text-xs mt-1">Pick targets, set workers, hit launch.</p>
+                </Link>
+              </li>
+              <li>
+                <Link href="/triage" prefetch className="card card-padding card-interactive block h-full">
+                  <p className="code-text mb-1">03</p>
+                  <h3 className="text-sm-medium">Triage the crashes</h3>
+                  <p className="text-meta text-xs mt-1">Identical failures group by signature.</p>
+                </Link>
+              </li>
+            </ol>
+          </div>
+        </PageSection>
+      )}
 
       {dataState === "success" && (
         <PageSection className="mb-6">
