@@ -1,10 +1,26 @@
 import { selectArtifactRepository } from '@/lib/storage/artifact-repository';
 import { jsonError, withRouteErrorHandling } from '@/lib/route-handler';
 import { createdResponse, successResponse } from '@/lib/api-response-utils';
+import { isRedisConfigured, getRedis } from '@/lib/redis';
 
 export const GET = withRouteErrorHandling(
   'GET /api/artifacts',
   async () => {
+    if (isRedisConfigured()) {
+      const redis = getRedis();
+      const ids = await redis.smembers('artifact:index');
+      const artifacts = [];
+      for (const id of ids) {
+        const raw = await redis.get(`artifact:${id}`);
+        if (raw) artifacts.push(typeof raw === 'string' ? JSON.parse(raw) : raw);
+      }
+      artifacts.sort(
+        (a: { updatedAt: string }, b: { updatedAt: string }) =>
+          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+      );
+      return successResponse({ artifacts, total: artifacts.length }, { total: artifacts.length });
+    }
+
     const artifacts = await selectArtifactRepository().list();
     return successResponse({ artifacts, total: artifacts.length }, { total: artifacts.length });
   },

@@ -10,6 +10,9 @@ import OnboardingWizardHost from "./OnboardingWizardHost";
 import CommandPalette from "../components/CommandPalette";
 import PageTransition from "../components/PageTransition";
 import { GlobalScrollEffects } from "../components/scroll-effects/GlobalScrollEffects";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { crashlabFileRouter } from "./api/uploadthing/core";
 export const metadata: Metadata = {
   title: "Soroban CrashLab | Smart Contract Fuzzing Platform",
   description:
@@ -58,6 +61,7 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
       <body className="antialiased min-h-screen">
+        <NextSSRPlugin routerConfig={extractRouterConfig(crashlabFileRouter)} />
         <a href="#main-content" className="skip-link">Skip to main content</a>
         <LocaleProvider>
           <ThemeProvider>

@@ -7,6 +7,8 @@ import { InMemoryStorageDriver } from './in-memory-driver';
 import { readS3Config, type EnvLike } from './env-config';
 import { S3StorageDriver } from './s3-driver';
 import { InMemoryRunDriver } from './in-memory-run-driver';
+import { KVRunDriver } from './kv-run-driver';
+import { isRedisConfigured } from '@/lib/redis';
 import type { StorageDriver } from './driver';
 import type { RunStorageDriver } from './run-driver';
 
@@ -38,6 +40,13 @@ export function selectStorageDriver(env: EnvLike = process.env): DriverSelection
 let runDriver: RunStorageDriver | undefined;
 
 export function selectRunStorageDriver(): RunStorageDriver {
-  runDriver ??= new InMemoryRunDriver();
+  if (runDriver) return runDriver;
+
+  if (isRedisConfigured()) {
+    runDriver = new KVRunDriver();
+  } else {
+    runDriver = new InMemoryRunDriver();
+  }
+
   return runDriver;
 }

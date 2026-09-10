@@ -1,12 +1,14 @@
 import { NextResponse } from 'next/server';
-import { errorResponse, successResponse, status } from '@/lib/api-response-utils';
+import { errorResponse, successResponse, createdResponse, status } from '@/lib/api-response-utils';
 import { logger } from '@/lib/logger';
-import { withRouteErrorHandling } from '@/lib/route-handler';
+import { withRouteErrorHandling, jsonError, readJsonBody } from '@/lib/route-handler';
 import { sanitizeSearchParams } from '@/lib/sanitize';
 import { withFixtureCaching } from '@/lib/fixture-caching';
 import { API_FETCH_TIMEOUT_MS } from '@/lib/timeouts';
 import { selectRunStorageDriver } from '@/lib/storage';
 import { paginateKeyset, getRunKeyset, isLegacyOrInvalidCursor } from '@/app/pagination-utils';
+import { FuzzingRunSchema } from '@/lib/schemas/runs';
+import { isRedisConfigured } from '@/lib/redis';
 
 const DEFAULT_PAGE_LIMIT = 20;
 
@@ -84,4 +86,25 @@ export const GET = withRouteErrorHandling('GET /api/runs', async (request: Reque
 
   const data = { runs: items, total, nextCursor, hasMore };
   return withFixtureCaching(request, { data, total: data.total });
+});
+
+export const POST = withRouteErrorHandling('POST /api/runs', async (request: Request) => {
+  if (!isRedisConfigured()) {
+    return errorResponse('Storage not configured', status.serviceUnavailable);
+  }
+
+  const parsed = await readJsonBody(request);
+  if ('error' in parsed) return parsed.error;
+
+  const result = FuzzingRunSchema.safeParse(parsed.body);
+  if (!result.success) {
+    return jsonError(`Invalid run payload: ${result.error.issues.map((i) => i.message).join(', ')}`, 400);
+  }
+
+  const driver = selectRunStorageDriver();
+  if ('putRun' in driver && typeof driver.putRun === 'function') {
+    await (driver as import('@/lib/storage/kv-run-driver').KVRunDriver).putRun(result.data);
+  }
+
+  return createdResponse({ run: result.data });
 });

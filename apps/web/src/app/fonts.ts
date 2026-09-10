@@ -1,4 +1,4 @@
-import { JetBrains_Mono, Source_Sans_3 } from "next/font/google";
+import { JetBrains_Mono, Share_Tech_Mono, Source_Sans_3, Syne } from "next/font/google";
 
 /**
  * Self-hosted font definitions.
@@ -29,5 +29,28 @@ export const jetbrainsMono = JetBrains_Mono({
   preload: true,
 });
 
-/** Convenience: both font CSS variables, applied once on `<html>`. */
-export const fontVariables = `${sourceSans.variable} ${jetbrainsMono.variable}`;
+/**
+ * Display typeface for large headlines — the "Tally & Slate" vibe.
+ * Harsh straight lines, structural cutouts, block styling.
+ * Used at heavy weights for hero text and section headings.
+ */
+export const syne = Syne({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  variable: "--font-syne",
+  preload: true,
+});
+
+/**
+ * Digital counter typeface — looks like an old-school odometer readout.
+ * Used for stat numbers and the scroll-triggered counting animation.
+ */
+export const shareTechMono = Share_Tech_Mono({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-share-tech-mono",
+  preload: true,
+});
+
+/** Convenience: all font CSS variables, applied once on `<html>`. */
+export const fontVariables = `${sourceSans.variable} ${jetbrainsMono.variable} ${syne.variable} ${shareTechMono.variable}`;

@@ -60,13 +60,14 @@
 
 @theme {
   /*
-   * Typography tokens. `--font-source-sans` / `--font-jetbrains-mono` are
-   * emitted by `next/font` (see src/app/fonts.ts) on the <html> element, so
-   * the self-hosted faces back the Tailwind `font-sans` / `font-mono`
-   * utilities as well as the hand-written component classes below.
+   * Typography tokens. `--font-source-sans` / `--font-jetbrains-mono` /
+   * `--font-syne` / `--font-share-tech-mono` are emitted by `next/font`
+   * (see src/app/fonts.ts) on the <html> element.
    */
   --font-sans: var(--font-source-sans), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-display: var(--font-syne), system-ui, sans-serif;
+  --font-odometer: var(--font-share-tech-mono), var(--font-jetbrains-mono), monospace;
 
   --color-primary: #0A66C2;
   --color-primary-hover: #004182;

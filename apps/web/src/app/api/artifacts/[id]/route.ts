@@ -3,6 +3,7 @@ import { selectArtifactRepository } from '@/lib/storage/artifact-repository';
 import { jsonError, withRouteErrorHandling } from '@/lib/route-handler';
 import { successResponse } from '@/lib/api-response-utils';
 import { recordAuditEvent } from '@/lib/audit/audit-sink';
+import { isRedisConfigured, getRedis } from '@/lib/redis';
 
 export const GET = withRouteErrorHandling(
   'GET /api/artifacts/[id]',
@@ -11,6 +12,18 @@ export const GET = withRouteErrorHandling(
 
     if (!id) {
       return jsonError('Artifact ID is required', 400);
+    }
+
+    if (isRedisConfigured()) {
+      const redis = getRedis();
+      const raw = await redis.get(`artifact:${id}`);
+      if (!raw) return jsonError('Artifact not found', 404);
+
+      const record = typeof raw === 'string' ? JSON.parse(raw) : raw;
+      if (record.utUrl) {
+        return NextResponse.redirect(record.utUrl);
+      }
+      return jsonError('Artifact has no download URL', 404);
     }
 
     const result = await selectArtifactRepository().get(id);
@@ -40,6 +53,22 @@ export const DELETE = withRouteErrorHandling(
 
     if (!id) {
       return jsonError('Artifact ID is required', 400);
+    }
+
+    if (isRedisConfigured()) {
+      const redis = getRedis();
+      const raw = await redis.get(`artifact:${id}`);
+      if (!raw) return jsonError('Artifact not found', 404);
+
+      const record = typeof raw === 'string' ? JSON.parse(raw) : raw;
+      if (record.runId) {
+        await redis.srem(`artifact:run:${record.runId}`, id);
+      }
+      await redis.srem('artifact:index', id);
+      await redis.del(`artifact:${id}`);
+
+      recordAuditEvent({ action: 'artifact.delete', target: id });
+      return successResponse({ success: true, message: 'Artifact deleted successfully' });
     }
 
     const deleted = await selectArtifactRepository().delete(id);
