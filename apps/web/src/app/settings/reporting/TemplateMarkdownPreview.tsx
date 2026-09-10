@@ -39,7 +39,7 @@ interface TemplateMarkdownPreviewProps {
 
 type CopyState = 'idle' | 'copied' | 'failed';
 
-const ACCENT = '#0A66C2';
+const ACCENT = '#111111';
 
 /** Known placeholder tokens, for telling typos apart from supported variables. */
 const KNOWN_TOKENS = new Set(TEMPLATE_VARIABLES.map((variable) => variable.token));
@@ -265,7 +265,7 @@ export default function TemplateMarkdownPreview({
             </div>
 
             {copyState === 'failed' && (
-                <p role="alert" className="text-xs" style={{ color: '#CC1016' }}>
+                <p role="alert" className="text-xs" style={{ color: '#333333' }}>
                     Clipboard access was blocked by the browser. Use Download .md instead.
                 </p>
             )}
@@ -283,7 +283,7 @@ export default function TemplateMarkdownPreview({
             </div>
 
             {unknownTokens.length > 0 && (
-                <p className="text-xs" style={{ color: '#946210' }}>
+                <p className="text-xs" style={{ color: '#555555' }}>
                     Unrecognised placeholder{unknownTokens.length > 1 ? 's' : ''}:{' '}
                     {unknownTokens.map((token) => `{{${token}}}`).join(', ')}. These stay
                     unsubstituted in the preview.
@@ -330,9 +330,9 @@ export default function TemplateMarkdownPreview({
                 <div
                     role="alert"
                     className="rounded-xl border p-4"
-                    style={{ borderColor: '#CC1016', background: 'rgba(204, 16, 22, 0.06)' }}
+                    style={{ borderColor: '#333333', background: 'rgba(204, 16, 22, 0.06)' }}
                 >
-                    <p className="text-sm font-semibold" style={{ color: '#CC1016' }}>
+                    <p className="text-sm font-semibold" style={{ color: '#333333' }}>
                         Preview unavailable
                     </p>
                     <p className="text-meta mt-1">{validation.message}</p>

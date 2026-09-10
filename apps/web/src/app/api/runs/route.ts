@@ -52,7 +52,7 @@ export const GET = withRouteErrorHandling('GET /api/runs', async (request: Reque
   }
 
   const enableMock = process.env.NEXT_PUBLIC_ENABLE_MOCK_DATA !== 'false';
-  if (!enableMock) {
+  if (!enableMock && !isRedisConfigured()) {
     return errorResponse('Mock data disabled and no backend configured', status.serviceUnavailable);
   }
 

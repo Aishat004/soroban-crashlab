@@ -96,7 +96,7 @@
 }
 
 .toast-success .toast-icon {
-  color: #057642;
+  color: #444444;
 }
 
 .dark .toast-success .toast-icon {
@@ -104,7 +104,7 @@
 }
 
 .toast-error .toast-icon {
-  color: #CC1016;
+  color: #333333;
 }
 
 .dark .toast-error .toast-icon {
@@ -112,7 +112,7 @@
 }
 
 .toast-warning .toast-icon {
-  color: #946210;
+  color: #555555;
 }
 
 .dark .toast-warning .toast-icon {
@@ -120,7 +120,7 @@
 }
 
 .toast-info .toast-icon {
-  color: #0A66C2;
+  color: #111111;
 }
 
 .dark .toast-info .toast-icon {
@@ -198,7 +198,7 @@
 }
 
 .toast-close:focus-visible {
-  outline: 2px solid #0A66C2;
+  outline: 2px solid #111111;
   outline-offset: 2px;
 }
 

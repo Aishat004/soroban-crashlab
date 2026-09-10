@@ -54,19 +54,19 @@ function RunsIllustration({ width, height }: { width: number; height: number }) 
     >
       <defs>
         <radialGradient id="runs-glow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#0A66C2" stopOpacity="0.18" />
-          <stop offset="100%" stopColor="#0A66C2" stopOpacity="0" />
+          <stop offset="0%" stopColor="#111111" stopOpacity="0.18" />
+          <stop offset="100%" stopColor="#111111" stopOpacity="0" />
         </radialGradient>
         <linearGradient id="runs-primary" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#0A66C2" />
-          <stop offset="100%" stopColor="#004182" />
+          <stop offset="0%" stopColor="#111111" />
+          <stop offset="100%" stopColor="#000000" />
         </linearGradient>
         <linearGradient id="runs-accent" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="#5AA7F0" />
-          <stop offset="100%" stopColor="#0A66C2" />
+          <stop offset="100%" stopColor="#111111" />
         </linearGradient>
         <filter id="runs-shadow" x="-10%" y="-10%" width="120%" height="130%" filterUnits="userSpaceOnUse">
-          <feDropShadow dx="0" dy="4" stdDeviation="6" floodOpacity="0.1" floodColor="#0A66C2" />
+          <feDropShadow dx="0" dy="4" stdDeviation="6" floodOpacity="0.1" floodColor="#111111" />
         </filter>
       </defs>
 
@@ -113,9 +113,9 @@ function RunsIllustration({ width, height }: { width: number; height: number }) 
         className="fill-zinc-50 dark:fill-zinc-800/80 stroke-zinc-200 dark:stroke-zinc-800"
         strokeWidth="1.5"
       />
-      <circle cx="64" cy="50" r="2" fill="#CC1016" />
-      <circle cx="71" cy="50" r="2" fill="#946210" />
-      <circle cx="78" cy="50" r="2" fill="#057642" />
+      <circle cx="64" cy="50" r="2" fill="#333333" />
+      <circle cx="71" cy="50" r="2" fill="#555555" />
+      <circle cx="78" cy="50" r="2" fill="#444444" />
 
       {/* Play / Rocket / Execution Arrow in Center */}
       <path
@@ -158,7 +158,7 @@ function RunsIllustration({ width, height }: { width: number; height: number }) 
       />
       <path
         d="M149 72L153 76L159 68"
-        stroke="#057642"
+        stroke="#444444"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -174,7 +174,7 @@ function RunsIllustration({ width, height }: { width: number; height: number }) 
       {/* Floating Sparkles / Accents */}
       <path
         d="M48 28L50 34L56 36L50 38L48 44L46 38L40 36L46 34L48 28Z"
-        fill="#0A66C2"
+        fill="#111111"
         opacity="0.6"
       />
       <circle cx="138" cy="32" r="3" fill="#5AA7F0" opacity="0.7" />
@@ -199,11 +199,11 @@ function LogsIllustration({ width, height }: { width: number; height: number }) 
     >
       <defs>
         <radialGradient id="logs-glow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#0A66C2" stopOpacity="0.14" />
-          <stop offset="100%" stopColor="#0A66C2" stopOpacity="0" />
+          <stop offset="0%" stopColor="#111111" stopOpacity="0.14" />
+          <stop offset="100%" stopColor="#111111" stopOpacity="0" />
         </radialGradient>
         <linearGradient id="logs-terminal-border" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#0A66C2" stopOpacity="0.4" />
+          <stop offset="0%" stopColor="#111111" stopOpacity="0.4" />
           <stop offset="100%" stopColor="#5AA7F0" stopOpacity="0.1" />
         </linearGradient>
         <filter id="logs-shadow" x="-10%" y="-10%" width="120%" height="130%" filterUnits="userSpaceOnUse">
@@ -233,27 +233,27 @@ function LogsIllustration({ width, height }: { width: number; height: number }) 
         className="fill-zinc-50 dark:fill-zinc-900 border-b stroke-zinc-200 dark:stroke-zinc-800"
         strokeWidth="1"
       />
-      <circle cx="44" cy="36" r="2.5" fill="#CC1016" opacity="0.8" />
-      <circle cx="52" cy="36" r="2.5" fill="#946210" opacity="0.8" />
-      <circle cx="60" cy="36" r="2.5" fill="#057642" opacity="0.8" />
+      <circle cx="44" cy="36" r="2.5" fill="#333333" opacity="0.8" />
+      <circle cx="52" cy="36" r="2.5" fill="#555555" opacity="0.8" />
+      <circle cx="60" cy="36" r="2.5" fill="#444444" opacity="0.8" />
       <rect x="74" y="33" width="32" height="6" rx="3" className="fill-zinc-200 dark:fill-zinc-800" />
 
       {/* Structured Log Lines */}
       {/* Row 1: INFO */}
-      <rect x="42" y="52" width="14" height="6" rx="2" fill="#0A66C2" fillOpacity="0.15" />
-      <rect x="44" y="54" width="10" height="2" rx="1" fill="#0A66C2" />
+      <rect x="42" y="52" width="14" height="6" rx="2" fill="#111111" fillOpacity="0.15" />
+      <rect x="44" y="54" width="10" height="2" rx="1" fill="#111111" />
       <rect x="60" y="54" width="22" height="3" rx="1.5" className="fill-zinc-300 dark:fill-zinc-700" />
       <rect x="86" y="54" width="46" height="3" rx="1.5" className="fill-zinc-200 dark:fill-zinc-800" />
 
       {/* Row 2: WARN */}
-      <rect x="42" y="64" width="14" height="6" rx="2" fill="#946210" fillOpacity="0.15" />
-      <rect x="44" y="66" width="10" height="2" rx="1" fill="#946210" />
+      <rect x="42" y="64" width="14" height="6" rx="2" fill="#555555" fillOpacity="0.15" />
+      <rect x="44" y="66" width="10" height="2" rx="1" fill="#555555" />
       <rect x="60" y="66" width="18" height="3" rx="1.5" className="fill-zinc-300 dark:fill-zinc-700" />
       <rect x="82" y="66" width="40" height="3" rx="1.5" className="fill-zinc-200 dark:fill-zinc-800" />
 
       {/* Row 3: SUCCESS */}
-      <rect x="42" y="76" width="14" height="6" rx="2" fill="#057642" fillOpacity="0.15" />
-      <rect x="44" y="78" width="10" height="2" rx="1" fill="#057642" />
+      <rect x="42" y="76" width="14" height="6" rx="2" fill="#444444" fillOpacity="0.15" />
+      <rect x="44" y="78" width="10" height="2" rx="1" fill="#444444" />
       <rect x="60" y="78" width="26" height="3" rx="1.5" className="fill-zinc-300 dark:fill-zinc-700" />
       <rect x="90" y="78" width="34" height="3" rx="1.5" className="fill-zinc-200 dark:fill-zinc-800" />
 
@@ -261,7 +261,7 @@ function LogsIllustration({ width, height }: { width: number; height: number }) 
       <text
         x="42"
         y="96"
-        className="fill-[#0A66C2] dark:fill-[#5AA7F0] font-mono text-[9px] font-bold"
+        className="fill-[#111111] dark:fill-[#5AA7F0] font-mono text-[9px] font-bold"
       >
         &gt;
       </text>
@@ -271,7 +271,7 @@ function LogsIllustration({ width, height }: { width: number; height: number }) 
         width="2"
         height="7"
         rx="1"
-        className="fill-[#0A66C2] dark:fill-[#5AA7F0] animate-pulse"
+        className="fill-[#111111] dark:fill-[#5AA7F0] animate-pulse"
       />
       <rect x="56" y="92" width="28" height="3" rx="1.5" className="fill-zinc-300 dark:fill-zinc-700" />
 
@@ -288,12 +288,12 @@ function LogsIllustration({ width, height }: { width: number; height: number }) 
           cx="132"
           cy="96"
           r="6.5"
-          className="stroke-[#0A66C2] dark:stroke-[#5AA7F0]"
+          className="stroke-[#111111] dark:stroke-[#5AA7F0]"
           strokeWidth="1.5"
         />
         <path
           d="M137 101L142 106"
-          className="stroke-[#0A66C2] dark:stroke-[#5AA7F0]"
+          className="stroke-[#111111] dark:stroke-[#5AA7F0]"
           strokeWidth="1.75"
           strokeLinecap="round"
         />
@@ -317,15 +317,15 @@ function ArtifactsIllustration({ width, height }: { width: number; height: numbe
     >
       <defs>
         <radialGradient id="art-glow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#0A66C2" stopOpacity="0.16" />
-          <stop offset="100%" stopColor="#0A66C2" stopOpacity="0" />
+          <stop offset="0%" stopColor="#111111" stopOpacity="0.16" />
+          <stop offset="100%" stopColor="#111111" stopOpacity="0" />
         </radialGradient>
         <linearGradient id="art-box-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#0A66C2" />
-          <stop offset="100%" stopColor="#004182" />
+          <stop offset="0%" stopColor="#111111" />
+          <stop offset="100%" stopColor="#000000" />
         </linearGradient>
         <filter id="art-shadow" x="-10%" y="-10%" width="120%" height="130%" filterUnits="userSpaceOnUse">
-          <feDropShadow dx="0" dy="6" stdDeviation="7" floodOpacity="0.1" floodColor="#0A66C2" />
+          <feDropShadow dx="0" dy="6" stdDeviation="7" floodOpacity="0.1" floodColor="#111111" />
         </filter>
       </defs>
 
@@ -348,7 +348,7 @@ function ArtifactsIllustration({ width, height }: { width: number; height: numbe
         />
         {/* Folded corner */}
         <path d="M68 32V38H76" className="stroke-zinc-200 dark:stroke-zinc-700" strokeWidth="1" />
-        <rect x="49" y="42" width="16" height="2.5" rx="1" fill="#CC1016" fillOpacity="0.8" />
+        <rect x="49" y="42" width="16" height="2.5" rx="1" fill="#333333" fillOpacity="0.8" />
         <rect x="49" y="48" width="22" height="2" rx="1" className="fill-zinc-200 dark:fill-zinc-700" />
         <rect x="49" y="53" width="18" height="2" rx="1" className="fill-zinc-200 dark:fill-zinc-700" />
         <rect x="49" y="58" width="14" height="2" rx="1" className="fill-zinc-200 dark:fill-zinc-700" />
@@ -366,7 +366,7 @@ function ArtifactsIllustration({ width, height }: { width: number; height: numbe
           strokeWidth="1.2"
         />
         <path d="M128 28V34H136" className="stroke-zinc-200 dark:stroke-zinc-700" strokeWidth="1" />
-        <rect x="109" y="38" width="16" height="2.5" rx="1" fill="#946210" fillOpacity="0.8" />
+        <rect x="109" y="38" width="16" height="2.5" rx="1" fill="#555555" fillOpacity="0.8" />
         <rect x="109" y="44" width="22" height="2" rx="1" className="fill-zinc-200 dark:fill-zinc-700" />
         <rect x="109" y="49" width="16" height="2" rx="1" className="fill-zinc-200 dark:fill-zinc-700" />
         <rect x="109" y="54" width="20" height="2" rx="1" className="fill-zinc-200 dark:fill-zinc-700" />
@@ -412,11 +412,11 @@ function ArtifactsIllustration({ width, height }: { width: number; height: numbe
       </g>
 
       {/* Floating Data Sparks */}
-      <circle cx="38" cy="46" r="2.5" fill="#0A66C2" opacity="0.7" />
+      <circle cx="38" cy="46" r="2.5" fill="#111111" opacity="0.7" />
       <circle cx="146" cy="40" r="2" fill="#5AA7F0" opacity="0.8" />
       <path
         d="M90 22L92 26L96 28L92 30L90 34L88 30L84 28L88 26L90 22Z"
-        fill="#0A66C2"
+        fill="#111111"
         opacity="0.7"
       />
     </svg>
@@ -438,8 +438,8 @@ function GenericIllustration({ width, height }: { width: number; height: number 
     >
       <defs>
         <radialGradient id="generic-glow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#0A66C2" stopOpacity="0.14" />
-          <stop offset="100%" stopColor="#0A66C2" stopOpacity="0" />
+          <stop offset="0%" stopColor="#111111" stopOpacity="0.14" />
+          <stop offset="100%" stopColor="#111111" stopOpacity="0" />
         </radialGradient>
         <filter id="generic-shadow" x="-10%" y="-10%" width="120%" height="130%" filterUnits="userSpaceOnUse">
           <feDropShadow dx="0" dy="5" stdDeviation="6" floodOpacity="0.08" floodColor="#000000" />
@@ -472,12 +472,12 @@ function GenericIllustration({ width, height }: { width: number; height: number 
         rx="2"
         className="fill-zinc-300 dark:fill-zinc-700"
       />
-      <circle cx="90" cy="54" r="2.5" fill="#0A66C2" opacity="0.6" />
+      <circle cx="90" cy="54" r="2.5" fill="#111111" opacity="0.6" />
 
       {/* Sparkle accents */}
       <path
         d="M136 34L137.5 38.5L142 40L137.5 41.5L136 46L134.5 41.5L130 40L134.5 38.5L136 34Z"
-        fill="#0A66C2"
+        fill="#111111"
         opacity="0.6"
       />
       <circle cx="48" cy="30" r="2" fill="#5AA7F0" opacity="0.7" />

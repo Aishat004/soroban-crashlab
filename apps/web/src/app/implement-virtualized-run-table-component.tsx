@@ -119,7 +119,7 @@ const VirtualRow = memo(({
             {visibleColumns.includes('severity') && (
                 <td
                     className="px-6 w-28 shrink-0 text-sm"
-                    style={{ color: run.severity === 'critical' ? '#946210' : run.severity === 'high' ? '#CC1016' : undefined }}
+                    style={{ color: run.severity === 'critical' ? '#555555' : run.severity === 'high' ? '#333333' : undefined }}
                 >
                     <TruncatedCell>{run.severity}</TruncatedCell>
                 </td>

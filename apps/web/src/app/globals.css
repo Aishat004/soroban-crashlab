@@ -9,12 +9,12 @@
  * ring only appears on keyboard navigation, not on clicks.
  */
 :where(a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])):focus-visible {
-  outline: 2px solid #0A66C2;
+  outline: 2px solid #111111;
   outline-offset: 2px;
 }
 
 .dark :where(a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])):focus-visible {
-  outline-color: #5AA7F0;
+  outline-color: #FFFFFF;
 }
 
 .skip-link {
@@ -60,95 +60,97 @@
 
 @theme {
   /*
-   * Typography tokens. `--font-source-sans` / `--font-jetbrains-mono` /
-   * `--font-syne` / `--font-share-tech-mono` are emitted by `next/font`
-   * (see src/app/fonts.ts) on the <html> element.
+   * Typography tokens. `--font-display` / `--font-body` / `--font-sans` /
+   * `--font-mono` are emitted by `next/font` (see src/app/fonts.ts) on the
+   * <html> element. Space Grotesk headlines, Lora body, Inter UI, JetBrains
+   * Mono data — the Newsprint voice with the display face kept in grotesque.
    */
-  --font-sans: var(--font-source-sans), system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-inter), "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
-  --font-display: var(--font-syne), system-ui, sans-serif;
-  --font-odometer: var(--font-share-tech-mono), var(--font-jetbrains-mono), monospace;
+  --font-display: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-body: var(--font-lora), Georgia, "Times New Roman", serif;
+  --font-odometer: var(--font-jetbrains-mono), monospace;
 
-  --color-primary: #0A66C2;
-  --color-primary-hover: #004182;
-  --color-secondary: #915907;
-  --color-neutral: #666666;
-  --color-background: #F4F2EE;
+  --color-primary: #111111;
+  --color-primary-hover: #000000;
+  --color-secondary: #525252;
+  --color-neutral: #737373;
+  --color-background: #F9F9F7;
   --color-surface: #FFFFFF;
-  --color-text-primary: #191919;
-  --color-text-secondary: #666666;
-  --color-border: #E0DFDC;
-  --color-success: #057642;
-  --color-warning: #946210;
-  --color-error: #CC1016;
+  --color-text-primary: #111111;
+  --color-text-secondary: #525252;
+  --color-border: #111111;
+  --color-success: #111111;
+  --color-warning: #737373;
+  --color-error: #111111;
 }
 
 :root {
-  --bg: #F4F2EE;
+  --bg: #F9F9F7;
   --surface: #FFFFFF;
-  --text-primary: #191919;
-  --text-secondary: #666666;
-  --border-color: #E0DFDC;
-  --nav-bg: #FFFFFF;
-  --card-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.06);
-  --card-shadow-hover: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.12);
+  --text-primary: #111111;
+  --text-secondary: #525252;
+  --border-color: #111111;
+  --nav-bg: #F9F9F7;
+  --card-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 1px 0 rgba(0, 0, 0, 0.04);
+  --card-shadow-hover: 0 0 0 1px rgba(0, 0, 0, 0.08), 4px 4px 0px 0px rgba(0, 0, 0, 0.9);
   --input-bg: #FFFFFF;
-  --input-border: #86888A;
-  --skeleton-from: #E8E8E8;
-  --skeleton-to: #F4F2EE;
-  --chip-bg: #E8E8E8;
-  --hover-bg: #F4F2EE;
-  --highlight-bg: #E7F0F9;
+  --input-border: #111111;
+  --skeleton-from: #E5E5E0;
+  --skeleton-to: #F9F9F7;
+  --chip-bg: #E5E5E0;
+  --hover-bg: #F5F5F5;
+  --highlight-bg: #F5F5F5;
 
-  /* Status badge tokens — used by .status-badge-* utility classes */
-  --status-running-bg: #E7F0F9;
-  --status-running-fg: #0A66C2;
-  --status-running-border: #BADCF7;
-  --status-completed-bg: rgba(5, 118, 50, 0.10);
-  --status-completed-fg: #057642;
-  --status-completed-border: rgba(5, 118, 50, 0.25);
-  --status-failed-bg: rgba(204, 16, 22, 0.10);
-  --status-failed-fg: #CC1016;
-  --status-failed-border: rgba(204, 16, 22, 0.25);
-  --status-cancelled-bg: #E8E8E8;
-  --status-cancelled-fg: #666666;
-  --status-cancelled-border: #D0D0D0;
+  /* Status badge tokens — monochrome weights, no color */
+  --status-running-bg: #111111;
+  --status-running-fg: #F9F9F7;
+  --status-running-border: #111111;
+  --status-completed-bg: #FFFFFF;
+  --status-completed-fg: #111111;
+  --status-completed-border: #111111;
+  --status-failed-bg: #111111;
+  --status-failed-fg: #FFFFFF;
+  --status-failed-border: #111111;
+  --status-cancelled-bg: #E5E5E0;
+  --status-cancelled-fg: #525252;
+  --status-cancelled-border: #E5E5E0;
 }
 
 .dark {
   --bg: #0c0c0c;
   --surface: #111111;
-  --text-primary: #e0e0e0;
-  --text-secondary: #808080;
-  --border-color: #1a1a1a;
+  --text-primary: #e6e6e6;
+  --text-secondary: #8a8a8a;
+  --border-color: #3a3a3a;
   --nav-bg: #0c0c0c;
-  --card-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 2px 4px rgba(0, 0, 0, 0.3);
-  --card-shadow-hover: 0 0 0 1px rgba(0, 255, 65, 0.08), 0 4px 12px rgba(0, 0, 0, 0.4);
+  --card-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 1px 0 rgba(255, 255, 255, 0.04);
+  --card-shadow-hover: 0 0 0 1px rgba(255, 255, 255, 0.06), 4px 4px 0px 0px rgba(255, 255, 255, 0.85);
   --input-bg: #0a0a0a;
   --input-border: #606060;
   --skeleton-from: #1a1a1a;
   --skeleton-to: #111111;
   --chip-bg: #1a1a1a;
-  --hover-bg: rgba(255, 255, 255, 0.03);
-  --highlight-bg: rgba(10, 102, 194, 0.1);
+  --hover-bg: rgba(255, 255, 255, 0.04);
+  --highlight-bg: rgba(255, 255, 255, 0.05);
 
-  /* Status badge tokens — dark mode overrides */
-  --status-running-bg: rgba(10, 102, 194, 0.15);
-  --status-running-fg: #5AA7F0;
-  --status-running-border: rgba(10, 102, 194, 0.35);
-  --status-completed-bg: rgba(5, 118, 50, 0.15);
-  --status-completed-fg: #229B6B;
-  --status-completed-border: rgba(5, 118, 50, 0.30);
-  --status-failed-bg: rgba(239, 68, 68, 0.15);
-  --status-failed-fg: #EF4444;
-  --status-failed-border: rgba(239, 68, 68, 0.30);
+  /* Status badge tokens — monochrome dark overrides */
+  --status-running-bg: #ffffff;
+  --status-running-fg: #111111;
+  --status-running-border: #ffffff;
+  --status-completed-bg: #111111;
+  --status-completed-fg: #e6e6e6;
+  --status-completed-border: #5a5a5a;
+  --status-failed-bg: #ffffff;
+  --status-failed-fg: #111111;
+  --status-failed-border: #ffffff;
   --status-cancelled-bg: #1a1a1a;
-  --status-cancelled-fg: #808080;
+  --status-cancelled-fg: #8a8a8a;
   --status-cancelled-border: #2a2a2a;
 }
 
 html {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(--bg);
@@ -218,20 +220,24 @@ html {
 }
 
 .heading-hero {
+  font-family: var(--font-display);
   font-size: 32px;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
   color: var(--text-primary);
 }
 
 .heading-page {
+  font-family: var(--font-display);
   font-size: 24px;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
 }
 
 .heading-section {
+  font-family: var(--font-display);
   font-size: 20px;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -239,25 +245,29 @@ html {
 }
 
 .heading-subtitle {
+  font-family: var(--font-display);
   font-size: 16px;
   font-weight: 600;
   color: var(--text-primary);
 }
 
 .body-text {
+  font-family: var(--font-body);
   font-size: 14px;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.625;
   color: var(--text-primary);
 }
 
 .text-meta {
+  font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 400;
   color: var(--text-secondary);
 }
 
 .text-caption {
+  font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 400;
   color: var(--text-secondary);
@@ -266,12 +276,12 @@ html {
 .code-text {
   font-family: var(--font-mono);
   font-size: 12px;
+  font-weight: 500;
 }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
   box-shadow: var(--card-shadow);
   transition: box-shadow 0.2s ease, background 0.3s ease, border-color 0.3s ease;
 }
@@ -293,27 +303,30 @@ html {
   align-items: center;
   gap: 8px;
   height: 40px;
+  min-height: 44px;
   padding: 0 24px;
-  background: #0A66C2;
-  color: #FFFFFF;
-  font-size: 16px;
-  font-weight: 600;
+  background: #111111;
+  color: #F9F9F7;
+  font-size: 14px;
+  font-weight: 700;
   font-family: var(--font-sans);
-  border: none;
-  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 1px solid transparent;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: all 0.2s ease;
   text-decoration: none;
 }
 
 .btn-primary:hover {
-  background: #004182;
+  background: #F9F9F7;
+  color: #111111;
+  border-color: #111111;
 }
 
 .btn-primary:focus-visible {
-  outline: 2px solid #004182;
+  outline: 2px solid #111111;
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(10, 102, 194, 0.2);
 }
 
 .btn-primary:disabled {
@@ -326,27 +339,29 @@ html {
   align-items: center;
   gap: 8px;
   height: 40px;
+  min-height: 44px;
   padding: 0 24px;
   background: transparent;
-  color: #0A66C2;
-  font-size: 16px;
-  font-weight: 600;
+  color: #111111;
+  font-size: 14px;
+  font-weight: 700;
   font-family: var(--font-sans);
-  border: 1px solid #0A66C2;
-  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 1px solid #111111;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
   text-decoration: none;
 }
 
 .btn-outline:hover {
-  background: rgba(10, 102, 194, 0.05);
+  background: #111111;
+  color: #F9F9F7;
 }
 
 .btn-outline:focus-visible {
-  outline: 2px solid #0A66C2;
+  outline: 2px solid #111111;
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(10, 102, 194, 0.2);
 }
 
 .btn-ghost {
@@ -355,45 +370,50 @@ html {
   gap: 8px;
   padding: 0 16px;
   height: 40px;
+  min-height: 44px;
   background: transparent;
-  color: #0A66C2;
-  font-size: 16px;
+  color: #111111;
+  font-size: 14px;
   font-weight: 600;
   font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   border: none;
-  border-radius: 9999px;
   cursor: pointer;
   transition: all 0.15s ease;
   text-decoration: none;
 }
 
 .btn-ghost:hover {
-  background: rgba(10, 102, 194, 0.05);
+  background: #E5E5E0;
 }
 
 .btn-ghost:focus-visible {
-  outline: 2px solid #0A66C2;
+  outline: 2px solid #111111;
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(10, 102, 194, 0.2);
 }
 
 .input-field {
   width: 100%;
-  height: 40px;
-  padding: 0 12px;
+  min-height: 44px;
+  padding: 10px 12px;
   font-size: 14px;
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
   color: var(--text-primary);
-  background: var(--input-bg);
-  border: 1px solid var(--input-border);
-  border-radius: 4px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--input-border);
   outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.3s ease;
+  transition: background 0.15s ease;
 }
 
 .input-field:focus {
-  border-color: #0A66C2;
-  box-shadow: 0 0 0 2px rgba(10, 102, 194, 0.15);
+  background: #F5F5F5;
+  border-bottom-color: #111111;
+}
+
+.dark .input-field:focus {
+  background: #1a1a1a;
 }
 
 .input-field::placeholder {
@@ -415,55 +435,56 @@ html {
   padding: 4px 12px;
   font-size: 14px;
   font-weight: 600;
-  border-radius: 9999px;
-  background: var(--chip-bg);
-  color: var(--text-primary);
-  border: none;
+  border-radius: 0;
+  background: #111111;
+  color: #F9F9F7;
+  border: 1px solid #F9F9F7;
 }
 
 .badge-running {
-  background: var(--highlight-bg);
-  color: #0A66C2;
+  background: #111111;
+  color: #F9F9F7;
   animation: status-pill-pulse 2s ease-in-out infinite;
 }
 
 .badge-completed {
-  background: rgba(5, 118, 50, 0.1);
-  color: #057642;
+  background: #F9F9F7;
+  color: #111111;
 }
 
 .badge-failed {
-  background: rgba(204, 16, 22, 0.1);
-  color: #CC1016;
+  background: #111111;
+  color: #FFFFFF;
 }
 
 .badge-cancelled {
-  background: var(--chip-bg);
-  color: var(--text-secondary);
+  background: #E5E5E0;
+  color: #525252;
 }
 
 .badge-critical {
-  background: rgba(195, 125, 22, 0.1);
-  color: #946210;
+  background: #111111;
+  color: #FFFFFF;
 }
 
 .dark .badge-completed {
-  color: #229B6B;
+  background: #111111;
+  color: #E6E6E6;
 }
 
 .dark .badge-failed {
-  color: #EF4444;
+  background: #FFFFFF;
+  color: #111111;
 }
 
 .link {
-  color: #0A66C2;
+  color: #111111;
   text-decoration: none;
   font-weight: 600;
-  transition: color 0.15s ease;
+  transition: text-decoration 0.15s ease;
 }
 
 .link:hover {
-  color: #004182;
   text-decoration: underline;
 }
 

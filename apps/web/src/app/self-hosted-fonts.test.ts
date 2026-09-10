@@ -45,15 +45,17 @@ describe('self-hosted fonts', () => {
     expect(layout).toMatch(/<html lang="en" className=\{fontVariables\}/);
   });
 
-  it('loads both families through next/font', () => {
+  it('loads all families through next/font', () => {
     expect(fontsModule).toMatch(/from "next\/font\/google"/);
-    expect(fontsModule).toMatch(/Source_Sans_3\(/);
+    expect(fontsModule).toMatch(/Inter\(/);
+    expect(fontsModule).toMatch(/Lora\(/);
+    expect(fontsModule).toMatch(/Space_Grotesk\(/);
     expect(fontsModule).toMatch(/JetBrains_Mono\(/);
   });
 
   it('covers latin and latin-ext so accented UI strings render', () => {
     const subsets = fontsModule.match(/subsets: \[[^\]]*\]/g) ?? [];
-    expect(subsets).toHaveLength(2);
+    expect(subsets).toHaveLength(4);
     for (const subset of subsets) {
       expect(subset).toContain('"latin"');
       expect(subset).toContain('"latin-ext"');
@@ -62,9 +64,11 @@ describe('self-hosted fonts', () => {
 
   it('preserves the four body weights and three mono weights', () => {
     const weights = fontsModule.match(/weight: \[[^\]]*\]/g) ?? [];
-    expect(weights).toHaveLength(2);
-    expect(weights[0]).toBe('weight: ["400", "500", "600", "700"]');
-    expect(weights[1]).toBe('weight: ["400", "500", "600"]');
+    expect(weights).toHaveLength(4);
+    expect(weights[0]).toBe('weight: ["400", "500", "600", "700"]'); // Inter
+    expect(weights[1]).toBe('weight: ["400", "600"]'); // Lora
+    expect(weights[2]).toBe('weight: ["500", "600", "700"]'); // Space Grotesk
+    expect(weights[3]).toBe('weight: ["400", "500", "700"]'); // JetBrains Mono
   });
 
   it('leaves font-display to the next/font default (swap)', () => {
@@ -72,7 +76,7 @@ describe('self-hosted fonts', () => {
   });
 
   it('wires the generated variables into the Tailwind theme tokens', () => {
-    expect(globalCss).toMatch(/--font-sans: var\(--font-source-sans\)/);
+    expect(globalCss).toMatch(/--font-sans: var\(--font-inter\)/);
     expect(globalCss).toMatch(/--font-mono: var\(--font-jetbrains-mono\)/);
   });
 

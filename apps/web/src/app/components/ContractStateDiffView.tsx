@@ -37,9 +37,9 @@ interface ContractStateDiffViewProps {
 type DiffLayout = 'split' | 'unified';
 
 const CHANGE_COLORS: Record<LedgerChangeType, string> = {
-  created: '#057642',
-  updated: '#0A66C2',
-  deleted: '#CC1016',
+  created: '#444444',
+  updated: '#111111',
+  deleted: '#333333',
 };
 
 /** Tinted pill matching the semantic colour of a change type. */
@@ -130,9 +130,9 @@ export default function ContractStateDiffView({
       <div
         role="alert"
         className="rounded-xl border p-4"
-        style={{ borderColor: '#CC1016', background: 'rgba(204, 16, 22, 0.06)' }}
+        style={{ borderColor: '#333333', background: 'rgba(204, 16, 22, 0.06)' }}
       >
-        <p className="text-sm font-semibold" style={{ color: '#CC1016' }}>
+        <p className="text-sm font-semibold" style={{ color: '#333333' }}>
           Could not load ledger state changes
         </p>
         <p className="text-meta mt-1">{error}</p>

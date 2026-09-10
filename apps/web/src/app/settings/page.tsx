@@ -56,7 +56,7 @@ export default function SettingsPage() {
           { href: '/settings/config-bundle', title: 'Configuration Bundle', desc: 'Export and import alert rules, channels and filter presets', icon: '⇄' },
         ].map((item) => (
           <Link key={item.href} href={item.href} className="card card-padding card-interactive flex items-start gap-3 sm:gap-4 text-decoration-none">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center text-base sm:text-lg flex-shrink-0" style={{ background: '#E7F0F9', color: '#0A66C2' }}>
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center text-base sm:text-lg flex-shrink-0" style={{ background: '#E0E0E0', color: '#111111' }}>
               {item.icon}
             </div>
             <div className="flex-1 min-w-0">
@@ -74,7 +74,7 @@ export default function SettingsPage() {
             {[
               { label: 'API URL', value: apiUrl },
               { label: 'Environment', value: process.env.NEXT_PUBLIC_VERCEL_ENV || 'Development' },
-              { label: 'Mock Data', value: isMockData ? 'Enabled' : 'Disabled', color: isMockData ? '#057642' : '#CC1016' },
+              { label: 'Mock Data', value: isMockData ? 'Enabled' : 'Disabled', color: isMockData ? '#444444' : '#333333' },
             ].map((info) => (
               <div key={info.label} className="flex justify-between items-center py-1">
                 <span className="text-meta">{info.label}</span>
@@ -99,9 +99,9 @@ export default function SettingsPage() {
             </div>
             <button
               onClick={toggleMaintainer}
-              className="relative inline-flex h-7 w-12 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#0A66C2] focus:ring-offset-2"
+              className="relative inline-flex h-7 w-12 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#111111] focus:ring-offset-2"
               style={{
-                background: isMaintainer ? '#0A66C2' : '#E0DFDC',
+                background: isMaintainer ? '#111111' : '#E0DFDC',
               }}
               role="switch"
               aria-checked={isMaintainer}

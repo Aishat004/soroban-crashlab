@@ -25,13 +25,13 @@ import {
 type DataState = 'loading' | 'success' | 'error';
 
 const SEVERITY_COLORS: Record<RunSeverity, string> = {
-    critical: '#CC1016',
-    high: '#946210',
-    medium: '#0A66C2',
-    low: '#057642',
+    critical: '#333333',
+    high: '#555555',
+    medium: '#111111',
+    low: '#444444',
 };
 
-const ACCENT = '#0A66C2';
+const ACCENT = '#111111';
 
 /** Headline number in the summary strip. */
 function SummaryCard({ label, value, hint }: { label: string; value: number; hint: string }) {
@@ -181,9 +181,9 @@ export default function FailureTaxonomyPage() {
                 <div
                     role="alert"
                     className="card card-padding text-center py-8 sm:py-12"
-                    style={{ borderLeft: '4px solid #CC1016' }}
+                    style={{ borderLeft: '4px solid #333333' }}
                 >
-                    <p className="font-semibold" style={{ color: '#CC1016' }}>
+                    <p className="font-semibold" style={{ color: '#333333' }}>
                         Failed to load failure data
                     </p>
                     <p className="text-meta mt-1 mb-3 sm:mb-4">Check your connection and try again.</p>

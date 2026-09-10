@@ -25,7 +25,7 @@ const numericFields = new Set<keyof ApiConfig>([
   'rateLimitWindowSeconds',
 ]);
 
-const successStyle = { color: '#057642' };
+const successStyle = { color: '#444444' };
 
 type InputProps = {
   id: string;
@@ -232,13 +232,13 @@ export default function ApiConfigForm() {
         <div
           className="card card-padding flex items-start gap-3"
           style={{
-            borderLeft: `3px solid ${isConfigured ? '#057642' : '#946210'}`,
+            borderLeft: `3px solid ${isConfigured ? '#444444' : '#555555'}`,
           }}
         >
           <div
             className="w-2 h-2 rounded-full mt-1 flex-shrink-0"
             style={{
-              background: isConfigured ? '#057642' : '#946210',
+              background: isConfigured ? '#444444' : '#555555',
             }}
           />
 
@@ -270,7 +270,7 @@ export default function ApiConfigForm() {
             id="api-config-draft-restored"
             className="text-xs"
             role="status"
-            style={{ color: '#946210' }}
+            style={{ color: '#555555' }}
           >
             Unsaved changes were restored. Save the configuration to apply them.
           </p>

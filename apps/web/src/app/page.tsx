@@ -10,31 +10,31 @@ const STEPS = [
     number: "01",
     title: "Point it at your contract",
     body: "Drop in a WASM file or paste a Stellar contract ID. CrashLab reads the exported functions and figures out what to break. No config needed to get started.",
-    accent: "#0A66C2",
+    accent: "#111111",
   },
   {
     number: "02",
     title: "Set up the fuzz campaign",
     body: "Pick which functions to stress, set mutation depth, resource limits, and how long to run. Or just hit start and let it figure things out on its own.",
-    accent: "#0A66C2",
+    accent: "#111111",
   },
   {
     number: "03",
     title: "It mutates, executes, watches",
     body: "The fuzzer generates thousands of mutated inputs, sends them to your contract on a local or testnet Stellar node, and watches for panics, out of bounds reads, and resource overflows.",
-    accent: "#0A66C2",
+    accent: "#111111",
   },
   {
     number: "04",
     title: "Triage what broke",
     body: "Crashes cluster by signature. The board groups identical failures together, shows the exact call sequence that triggered each one, and links to the ledger changes.",
-    accent: "#CC1016",
+    accent: "#333333",
   },
   {
     number: "05",
     title: "Ship the fix with proof",
     body: "Export a reproduction snippet, open a GitHub issue straight from the dashboard, or feed the failure into CI. Every crash comes with a replayable proof.",
-    accent: "#057642",
+    accent: "#444444",
   },
 ];
 
@@ -141,7 +141,7 @@ function FeatureCard({ feature, index }: { feature: (typeof FEATURES)[number]; i
         <div className="rounded-xl p-6 h-full" style={{ backgroundColor: "var(--surface)", border: "1px solid var(--border-color)" }}>
           <div
             className="w-10 h-10 rounded-lg flex items-center justify-center mb-4"
-            style={{ backgroundColor: "var(--highlight-bg)", color: "#0A66C2" }}
+            style={{ backgroundColor: "var(--highlight-bg)", color: "#111111" }}
           >
             {feature.icon}
           </div>
@@ -222,7 +222,7 @@ export default function LandingPage() {
                 href="/dashboard"
                 prefetch
                 className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full text-sm font-bold text-white shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02]"
-                style={{ backgroundColor: "#0A66C2" }}
+                style={{ backgroundColor: "#111111" }}
               >
                 <svg
                   className="w-4 h-4"
@@ -286,7 +286,7 @@ export default function LandingPage() {
           <div className="text-center mb-14">
             <p
               className="text-xs font-bold tracking-widest uppercase mb-3"
-              style={{ color: "#0A66C2" }}
+              style={{ color: "#111111" }}
             >
               How it works
             </p>
@@ -318,7 +318,7 @@ export default function LandingPage() {
             <div className="text-center mb-14">
               <p
                 className="text-xs font-bold tracking-widest uppercase mb-3"
-                style={{ color: "#0A66C2" }}
+                style={{ color: "#111111" }}
               >
                 Features
               </p>
@@ -347,7 +347,7 @@ export default function LandingPage() {
           <div className="text-center mb-10">
             <p
               className="text-xs font-bold tracking-widest uppercase mb-3"
-              style={{ color: "#CC1016" }}
+              style={{ color: "#333333" }}
             >
               Why this matters
             </p>
@@ -418,7 +418,7 @@ export default function LandingPage() {
             href="/dashboard"
             prefetch
             className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full text-sm font-bold text-white shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02]"
-            style={{ backgroundColor: "#0A66C2" }}
+            style={{ backgroundColor: "#111111" }}
           >
             <svg
               className="w-4 h-4"
@@ -461,7 +461,7 @@ export default function LandingPage() {
               <span className="flex items-center gap-1.5">
                 <span
                   className="w-2 h-2 rounded-full inline-block"
-                  style={{ backgroundColor: "#057642" }}
+                  style={{ backgroundColor: "#444444" }}
                 />
                 Stellar Testnet
               </span>
@@ -473,7 +473,7 @@ export default function LandingPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:underline"
-                style={{ color: "#0A66C2" }}
+                style={{ color: "#111111" }}
               >
                 GitHub
               </a>

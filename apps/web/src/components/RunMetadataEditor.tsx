@@ -316,7 +316,7 @@ export default function RunMetadataEditor({
         </div>
 
         {error && (
-          <p className="text-xs" style={{ color: '#CC1016' }} data-testid="metadata-error">
+          <p className="text-xs" style={{ color: '#333333' }} data-testid="metadata-error">
             {error}
           </p>
         )}
@@ -325,7 +325,7 @@ export default function RunMetadataEditor({
           {saveState === 'saved' && (
             <span
               className="text-sm-semibold"
-              style={{ color: '#057642' }}
+              style={{ color: '#444444' }}
               data-testid="save-success"
             >
               Saved

@@ -36,8 +36,8 @@ const FIELDS: { field: NetworkFormField; label: string; placeholder: string }[] 
   },
 ];
 
-const dangerStyle = { color: '#CC1016' };
-const successStyle = { color: '#057642' };
+const dangerStyle = { color: '#333333' };
+const successStyle = { color: '#444444' };
 
 export default function NetworkConfigForm() {
   const [networks, setNetworks] = useState<NetworkConfig[]>([]);

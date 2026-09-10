@@ -68,7 +68,7 @@ export default function ConfigBundlePanel() {
           file. Keys are written in a stable order, so re-exporting unchanged configuration
           produces an identical file.
         </p>
-        <button type="button" onClick={handleExport} className="btn-primary rounded-lg px-4 py-2 text-sm font-semibold text-white" style={{ background: '#0A66C2' }}>
+        <button type="button" onClick={handleExport} className="btn-primary rounded-lg px-4 py-2 text-sm font-semibold text-white" style={{ background: '#111111' }}>
           Export bundle
         </button>
       </section>
@@ -124,7 +124,7 @@ export default function ConfigBundlePanel() {
                   type="button"
                   onClick={handleCommit}
                   className="rounded-lg px-4 py-2 text-sm font-semibold text-white"
-                  style={{ background: '#057642' }}
+                  style={{ background: '#444444' }}
                 >
                   Commit all sections
                 </button>
