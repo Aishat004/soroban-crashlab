@@ -126,7 +126,7 @@ export default function DashboardShell({
       >
         {/* Sidebar Header */}
         <div className="h-16 flex items-center justify-between px-4 border-b border-zinc-200/60 dark:border-zinc-800/60">
-          <Link href="/" className="flex items-center gap-3 overflow-hidden">
+          <Link href="/dashboard" className="flex items-center gap-3 overflow-hidden">
             <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shrink-0 font-bold shadow-lg shadow-blue-500/20">
               CL
             </div>

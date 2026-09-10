@@ -78,7 +78,7 @@ export default function BreadcrumbNav({
       <ol className="breadcrumb-list">
         {/* Home link — always rendered as the first crumb */}
         <li className="breadcrumb-item">
-          <Link href="/" className="breadcrumb-link breadcrumb-home">
+          <Link href="/dashboard" className="breadcrumb-link breadcrumb-home">
             <svg
               className="breadcrumb-home-icon"
               width="14"

@@ -36,7 +36,7 @@ export default function HomeError({ error, reset }: ErrorProps) {
             Try again
           </button>
           <Link
-            href="/"
+            href="/dashboard"
             className="inline-flex items-center gap-2 px-4 py-2 border border-red-300 dark:border-red-800 text-red-700 dark:text-red-300 hover:bg-red-100 dark:hover:bg-red-900/30 font-medium rounded-lg text-sm"
           >
             Back to dashboard
