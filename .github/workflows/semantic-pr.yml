@@ -1,11 +1,17 @@
 name: Semantic PR Title
 
+# pull_request_target (not pull_request): fork PRs run with a read-only
+# token under pull_request, which crashes the title check with
+# "Resource not accessible by integration" on every contributor PR.
+# pull_request_target runs the base-branch workflow with write access.
+# This is safe: nothing checks out or executes PR code, the pinned action
+# only reads the PR title string.
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, edited, synchronize, reopened]
 
 permissions:
-  pull-requests: read
+  pull-requests: write
 
 jobs:
   lint-title:
