@@ -1,5 +1,14 @@
 #![no_std]
 use soroban_sdk::{
+    contract, contractimpl,
+    symbol_short,
+    Address, Env,
+};
+
+/// Storage layout version. Version 2 stores each balance and allowance in a
+/// separate persistent entry. Deployments using version 1 require an explicit
+/// migration before calling this contract; no automatic migration is provided.
+pub const STORAGE_VERSION: u32 = 2;
     contract, contractimpl, contracterror,
     map, symbol_short,
     Address, Env, Map,
@@ -52,6 +61,10 @@ impl TokenContract {
             .persistent()
             .set(&symbol_short!("Supply"), &total_supply);
 
+        env.storage().persistent().set(
+            &(symbol_short!("Bal"), admin),
+            &total_supply,
+        );
         let mut balances: Map<Address, i128> = map![&env];
         balances.set(admin.clone(), total_supply);
         env.storage()
@@ -73,6 +86,13 @@ impl TokenContract {
             .ok_or(ContractError::NotInitialized)
     }
 
+    /// Get the balance of an account
+    pub fn balance(env: Env, account: Address) -> i128 {
+        env
+            .storage()
+            .persistent()
+            .get(&(symbol_short!("Bal"), account))
+            .unwrap_or(0)
     /// Get the balance of an account.
     pub fn balance(env: Env, account: Address) -> Result<i128, ContractError> {
         let balances: Map<Address, i128> = env
@@ -96,6 +116,7 @@ impl TokenContract {
             return Err(ContractError::InvalidAmount);
         }
 
+        let from_balance = Self::balance(env.clone(), from.clone());
         let mut balances: Map<Address, i128> = env
             .storage()
             .persistent()
@@ -107,6 +128,9 @@ impl TokenContract {
             return Err(ContractError::InsufficientBalance);
         }
 
+        Self::set_balance(&env, from, from_balance - amount);
+        let to_balance = Self::balance(env.clone(), to.clone());
+        Self::set_balance(&env, to, to_balance + amount);
         balances.set(
             from.clone(),
             from_balance
@@ -162,6 +186,8 @@ impl TokenContract {
             .persistent()
             .set(&symbol_short!("Supply"), &new_supply);
 
+        let to_balance = Self::balance(env.clone(), to.clone());
+        Self::set_balance(&env, to, to_balance + amount);
         let mut balances: Map<Address, i128> = env
             .storage()
             .persistent()
@@ -203,6 +229,7 @@ impl TokenContract {
             return Err(ContractError::InvalidAmount);
         }
 
+        let from_balance = Self::balance(env.clone(), from.clone());
         let mut balances: Map<Address, i128> = env
             .storage()
             .persistent()
@@ -212,6 +239,7 @@ impl TokenContract {
         if from_balance < amount {
             return Err(ContractError::InsufficientBalance);
         }
+        Self::set_balance(&env, from, from_balance - amount);
         balances.set(
             from,
             from_balance
@@ -249,6 +277,12 @@ impl TokenContract {
             return Err(ContractError::InvalidAmount);
         }
 
+        let key = (symbol_short!("Allow"), owner, spender);
+        if amount == 0 {
+            env.storage().persistent().remove(&key);
+        } else {
+            env.storage().persistent().set(&key, &amount);
+        }
         let mut allowances: Map<(Address, Address), i128> = env
             .storage()
             .persistent()
@@ -263,12 +297,11 @@ impl TokenContract {
 
     /// Get the allowance for a spender.
     pub fn allowance(env: Env, owner: Address, spender: Address) -> i128 {
-        let allowances: Map<(Address, Address), i128> = env
+        env
             .storage()
             .persistent()
-            .get(&symbol_short!("Allow"))
-            .unwrap_or(map![&env]);
-        allowances.get((owner, spender)).unwrap_or(0)
+            .get(&(symbol_short!("Allow"), owner, spender))
+            .unwrap_or(0)
     }
 
     /// Transfer tokens using allowance.
@@ -285,6 +318,7 @@ impl TokenContract {
             return Err(ContractError::InvalidAmount);
         }
 
+        let current_allowance = Self::allowance(env.clone(), from.clone(), spender.clone());
         let mut allowances: Map<(Address, Address), i128> = env
             .storage()
             .persistent()
@@ -296,6 +330,9 @@ impl TokenContract {
         if current_allowance < amount {
             return Err(ContractError::InsufficientAllowance);
         }
+        Self::set_allowance(&env, from.clone(), spender, current_allowance - amount);
+
+        let from_balance = Self::balance(env.clone(), from.clone());
         allowances.set(
             (from.clone(), spender),
             current_allowance
@@ -314,6 +351,27 @@ impl TokenContract {
         let from_balance = balances.get(from.clone()).unwrap_or(0);
         if from_balance < amount {
             return Err(ContractError::InsufficientBalance);
+        }
+        Self::set_balance(&env, from, from_balance - amount);
+        let to_balance = Self::balance(env.clone(), to.clone());
+        Self::set_balance(&env, to, to_balance + amount);
+    }
+
+    fn set_balance(env: &Env, account: Address, amount: i128) {
+        let key = (symbol_short!("Bal"), account);
+        if amount == 0 {
+            env.storage().persistent().remove(&key);
+        } else {
+            env.storage().persistent().set(&key, &amount);
+        }
+    }
+
+    fn set_allowance(env: &Env, owner: Address, spender: Address, amount: i128) {
+        let key = (symbol_short!("Allow"), owner, spender);
+        if amount == 0 {
+            env.storage().persistent().remove(&key);
+        } else {
+            env.storage().persistent().set(&key, &amount);
         }
         balances.set(
             from.clone(),
