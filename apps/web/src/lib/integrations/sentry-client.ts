@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/nextjs';
+import { safeStorage } from "../local-storage";
 
 /**
  * Initializes the Sentry client-side SDK.
@@ -12,7 +13,7 @@ export function initSentryClient(): void {
       dsn,
       tracesSampleRate: 1.0,
       beforeSend(event) {
-        const isMockData = sessionStorage.getItem('crashlab:mock-data') === 'true';
+        const isMockData = safeStorage.getItem('crashlab:mock-data', 'session') === 'true';
         if (!event.tags) event.tags = {};
         event.tags.environment = isMockData ? 'mock-data' : 'production';
         if (event.request) {
