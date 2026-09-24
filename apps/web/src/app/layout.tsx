@@ -14,6 +14,7 @@ import { GlobalScrollEffects } from "../components/scroll-effects/GlobalScrollEf
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { crashlabFileRouter } from "./api/uploadthing/core";
+import { SentryClientBootstrap } from "../components/SentryClientBootstrap";
 export const metadata: Metadata = {
   title: "Soroban CrashLab | Smart Contract Fuzzing Platform",
   description:
@@ -65,6 +66,7 @@ export default function RootLayout({
         <NextSSRPlugin routerConfig={extractRouterConfig(crashlabFileRouter)} />
         <a href="#main-content" className="skip-link">Skip to main content</a>
         <LocaleProvider>
+          <SentryClientBootstrap />
           <ThemeProvider>
             <AccessibilityProvider>
               <ToastProvider>
