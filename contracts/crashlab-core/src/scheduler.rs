@@ -213,6 +213,80 @@ impl WeightedScheduler {
             })
             .collect()
     }
+
+    /// Creates a [`WeightedScheduler`] pre-configured with the default mutator set.
+    pub fn default_scheduler() -> Result<Self, SchedulerError> {
+        MutatorRegistry::default_registry().build()
+    }
+}
+
+/// A registry for configuring, discovering, and assembling mutators.
+pub struct MutatorRegistry {
+    entries: Vec<(Box<dyn Mutator>, f64)>,
+}
+
+impl Default for MutatorRegistry {
+    fn default() -> Self {
+        Self::default_registry()
+    }
+}
+
+impl MutatorRegistry {
+    /// Creates an empty mutator registry.
+    pub fn new() -> Self {
+        Self {
+            entries: Vec::new(),
+        }
+    }
+
+    /// Registers a boxed mutator with the given weight.
+    pub fn register(&mut self, mutator: Box<dyn Mutator>, weight: f64) -> &mut Self {
+        self.entries.push((mutator, weight));
+        self
+    }
+
+    /// Registers a mutator by value with the given weight.
+    pub fn register_mutator<M: Mutator + 'static>(&mut self, mutator: M, weight: f64) -> &mut Self {
+        self.register(Box::new(mutator), weight)
+    }
+
+    /// Number of registered mutators.
+    pub fn len(&self) -> usize {
+        self.entries.len()
+    }
+
+    /// Whether the registry contains no mutators.
+    pub fn is_empty(&self) -> bool {
+        self.entries.is_empty()
+    }
+
+    /// Read-only access to the registered (mutator, weight) pairs.
+    pub fn entries(&self) -> &[(Box<dyn Mutator>, f64)] {
+        &self.entries
+    }
+
+    /// Builds a [`WeightedScheduler`] from the registered mutators.
+    pub fn build(self) -> Result<WeightedScheduler, SchedulerError> {
+        WeightedScheduler::new(self.entries)
+    }
+
+    /// Returns a pre-configured default registry containing the core mutators:
+    /// - [`DefaultMutator`][crate::DefaultMutator] (havoc mutator)
+    /// - [`EnumVariantFlipMutator`][crate::enum_flip::EnumVariantFlipMutator]
+    /// - [`PrngMutator`][crate::prng::PrngMutator]
+    /// - [`BoundaryMutator`][crate::boundary::BoundaryMutator]
+    /// - [`ContainerStressMutator`][crate::container_stress::ContainerStressMutator]
+    /// - [`DecimalPrecisionMutator`][crate::decimal_precision::DecimalPrecisionMutator]
+    pub fn default_registry() -> Self {
+        let mut registry = Self::new();
+        registry.register(Box::new(crate::DefaultMutator::default()), 40.0);
+        registry.register(Box::new(crate::enum_flip::EnumVariantFlipMutator), 15.0);
+        registry.register(Box::new(crate::prng::PrngMutator), 15.0);
+        registry.register(Box::new(crate::boundary::BoundaryMutator), 10.0);
+        registry.register(Box::new(crate::container_stress::ContainerStressMutator::default_mutator()), 10.0);
+        registry.register(Box::new(crate::decimal_precision::DecimalPrecisionMutator), 10.0);
+        registry
+    }
 }
 
 /// A single entry in the scheduler's statistics report.
@@ -343,4 +417,37 @@ mod tests {
         assert_eq!(scheduler.total_weight, 10.0);
         assert_eq!(scheduler.cumulative_weights, vec![9.0, 10.0]);
     }
+
+    #[test]
+    fn registry_registers_and_builds() {
+        let mut registry = MutatorRegistry::new();
+        assert!(registry.is_empty());
+        registry.register_mutator(MockMutator("a"), 5.0);
+        registry.register(Box::new(MockMutator("b")), 15.0);
+        assert_eq!(registry.len(), 2);
+        assert!(!registry.is_empty());
+
+        let scheduler = registry.build().unwrap();
+        assert_eq!(scheduler.total_weight, 20.0);
+    }
+
+    #[test]
+    fn default_registry_builds_and_selects_successfully() {
+        let registry = MutatorRegistry::default_registry();
+        assert!(registry.len() >= 6);
+
+        let mut scheduler = registry.build().expect("default registry builds scheduler");
+        let mut rng = 42u64;
+        let mut selected_names = std::collections::HashSet::new();
+
+        for _ in 0..500 {
+            let m = scheduler.select_mutator(&mut rng);
+            selected_names.insert(m.name());
+        }
+
+        assert!(selected_names.contains("havoc"));
+        assert!(selected_names.contains("enum-variant-flip"));
+        assert!(selected_names.contains("prng"));
+    }
 }
+
