@@ -14,7 +14,7 @@ import { checkRequestSize } from '@/lib/request-size-limits';
 import { buildDedupKey } from '../../../../integrate-pagerduty-alert-integration-utils';
 import type { TriggerAlertPayload } from '../../../../../lib/integrations/pagerduty-adapter';
 import { PAGERDUTY_FETCH_TIMEOUT_MS } from '../../../../../lib/timeouts';
-import { httpCall, outboundErrorCode } from '../../../../../lib/http-call';
+import { PagerDutyTriggerSchema } from '@/lib/schemas/integrations/pagerduty';
 
 const PD_EVENTS_API_URL = 'https://events.pagerduty.com/v2/enqueue';
 
@@ -25,7 +25,14 @@ export async function POST(request: Request) {
   }
 
   try {
-    const body = (await request.json()) as TriggerAlertPayload & { integrationKey?: string };
+    const unparsedBody = await request.json();
+    const validation = PagerDutyTriggerSchema.safeParse(unparsedBody);
+    
+    if (!validation.success) {
+      return errorResponse(validation.error.errors[0].message, 400);
+    }
+    
+    const body = validation.data;
 
     const integrationKey = (
       body.integrationKey ?? process.env.PAGERDUTY_INTEGRATION_KEY ?? ''
@@ -34,13 +41,6 @@ export async function POST(request: Request) {
     if (!integrationKey) {
       return errorResponse(
         'PagerDuty integration key is not configured',
-        400,
-      );
-    }
-
-    if (!body.runId || !body.signature || !body.summary) {
-      return errorResponse(
-        'runId, signature, and summary are required',
         400,
       );
     }
@@ -66,14 +66,11 @@ export async function POST(request: Request) {
     };
 
     try {
-      const pdResponse = await httpCall('pagerduty', PD_EVENTS_API_URL, {
+      const pdResponse = await fetch(PD_EVENTS_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(pdPayload),
-      }, {
-        attemptTimeoutMs: PAGERDUTY_FETCH_TIMEOUT_MS,
-        // Events API v2 deduplicates on dedup_key, so a retried POST is safe.
-        idempotent: true,
+        signal: AbortSignal.timeout?.(PAGERDUTY_FETCH_TIMEOUT_MS),
       });
 
       if (pdResponse.ok || pdResponse.status === 202) {
@@ -95,7 +92,6 @@ export async function POST(request: Request) {
         success: true,
         dedupKey,
         warning: 'Alert queued locally – could not reach PagerDuty API',
-        code: outboundErrorCode(networkError),
       });
     }
   } catch {

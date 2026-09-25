@@ -1,35 +1,30 @@
-import { createRouteHandler, jsonError } from '@/lib/route-handler';
+import { withRouteErrorHandling, jsonError, readJsonBody } from '@/lib/route-handler';
 import { successResponse } from '@/lib/api-response-utils';
 import { createJiraIssuesAdapter } from '@/lib/integrations/jira-issues';
-import { z } from 'zod';
+import { JiraCreateIssueSchema } from '@/lib/schemas/integrations/jira';
 
-const jiraIssueSchema = z.object({
-  summary: z.string().min(1, 'A non-empty summary is required'),
-  description: z.string().optional(),
-  projectKey: z.string().optional(),
-  issueType: z.string().optional(),
-});
+export const POST = withRouteErrorHandling(
+  'POST /api/integrations/jira',
+  async (request: Request) => {
+    const bodyResult = await readJsonBody(request);
+    if ('error' in bodyResult) {
+      return bodyResult.error;
+    }
 
-export const POST = createRouteHandler(
-  {
-    label: 'POST /api/integrations/jira',
-    fallbackMessage: 'Failed to create Jira issue',
-    bodySchema: jiraIssueSchema,
-  },
-  async (request, { body }) => {
+    const validation = JiraCreateIssueSchema.safeParse(bodyResult.body);
+    if (!validation.success) {
+      return jsonError(validation.error.errors[0].message, 400);
+    }
+    const payload = validation.data;
+
     const adapter = createJiraIssuesAdapter();
-    const issue = await adapter.createIssue({
-      summary: body.summary.trim(),
-      description: body.description,
-      projectKey: body.projectKey,
-      issueType: body.issueType,
-    });
+    const issue = await adapter.createIssue(payload);
 
     if (!issue) {
       return jsonError('Jira issue could not be created', 503);
     }
 
     return successResponse({ issue });
-  }
+  },
+  'Failed to create Jira issue',
 );
-
